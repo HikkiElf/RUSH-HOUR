@@ -42,5 +42,5 @@ class tile:
 
 class field:
 
-    def __ini
+    def __init__(self)
 
