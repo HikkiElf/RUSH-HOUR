@@ -3,25 +3,27 @@ from PIL import ImageTk, Image
 import random
 
 # class for tiles info
-class tile:
+class Tile:
 
-    def __init__(self):
+    def __init__(self, size, direction, tileCoordX, tileCoordY, keyTile):
 
-        self.size = None # 2, 3
+        self.size = size # 2, 3
 
-        self.direction = None # horizontal, vertical
+        self.direction = direction # horizontal, vertical
 
-        self.tileCoordX = None # X tile coordinate
-        self.tileCoordY = None # Y tile coordinate
+        self.tileCoordX = tileCoordX # X tile coordinate
+        self.tileCoordY = tileCoordY # Y tile coordinate
 
         self.tileIndexX = None # X index to choose tile
-        self.TileIndexY = None # Y index to choose tile
+        self.tileIndexY = None # Y index to choose tile
 
         self.tileStatus = "UNSELECT"
+
+        self.keyTile = keyTile
     
     def set_coords(self, tileCoordX, tileCoordY):
-        self.tileCoordX = TileCoordX
-        self.tileCoordY = TileCoordY
+        self.tileCoordX = tileCoordX
+        self.tileCoordY = tileCoordY
     
     def get_index(self):
         self.tileIndexX = self.tileCoordX // squareSize
@@ -40,7 +42,8 @@ class tile:
         print("size =", self.size, " direction =", self.direction, " TileCoordX =", 
             self.TileCoordX, " TileCoordY =", self.TileCoordY, " TileStatus =", self.TileStatus)
 
-class field:
+class Field:
 
-    def __init__(self)
-
+    def __init__(self, boardSize):
+        self.boardSize = boardSize
+        self.emptySq
