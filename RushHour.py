@@ -41,11 +41,12 @@ def draw_board():
                                             fill="#ffffff",
                                             outline="#8b5546")
             else:
-                tile[row][col] = canvas.create_rectangle(col * squareSize, row * squareSize, # area blocks
+                tile[row][col] = canvas.create_rectangle(col * squareSize, row * squareSize,
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#FFFF99",
                                             outline="#0F0326")
+                print(canvas.coords(tile[row][col]))
 
 
 # moves blocks
@@ -83,6 +84,20 @@ def move(event):
         print('\n')
 
 
+def click(event):
+    print(event)
+    xCursor, yCursor = event.x, event.y # get cursor coordinates
+
+    xCursor = xCursor // squareSize # X cursor index
+    yCursor = yCursor // squareSize # Y cursor index
+    value = board[yCursor][xCursor]
+    print(value)
+
+
+    print(xCursor, yCursor, "\n")
+
+
+
 
 # Game settings
 root = tk.Tk() # main window
@@ -118,30 +133,9 @@ canvas.pack() # display canvas
 
 draw_board()
 
+canvas.bind('<Button-1>', click)
 canvas.bind('<Up>', move)
 canvas.bind('<Down>', move)
 
 
 root.mainloop()
-# # register block selection for next moving
-# def click(event):
-#     print(event)
-#     xCursor, yCursor = event.x, event.y # get cursor coordinates
-
-#     xCursor = xCursor // squareSize # X cursor index
-#     yCursor = yCursor // squareSize # Y cursor index
-
-#     print(xCursor, yCursor, "\n")
-#     for row in range(len(tile)):
-#         for col in range(len(tile[row])):
-#             print(canvas.coords(tile[row][col]), end=' ')
-#         print()
-#     print(canvas.coords(tile[1][2])[2])
-
-#     for row in range(len(board)):
-#         tileStatus[row] = "UNSELECT"
-#         if (xCursor == canvas.coords(tile[row])[0] // squareSize) and (yCursor == canvas.coords(tile[row])[1] // squareSize):
-#             tileStatus[row] = "SELECT"
-#     for row in range(len(board)):
-#         print(tileStatus[row])
-    
