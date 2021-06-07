@@ -11,8 +11,6 @@ import random
 # 3 - lock
 # other numbers - moveble blocks
 def draw_board():
-    global key
-    key = [0] * len(board)
     for row in range(len(board)):
         for col in range(len(board[row])):
             if board[row][col] == 0:
@@ -29,7 +27,7 @@ def draw_board():
                                             fill="#000000")
             
             elif board[row][col] == 2:
-                key[row] = canvas.create_rectangle(col * squareSize, row * squareSize,
+                canvas.create_rectangle(col * squareSize, row * squareSize,
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#D42421",
@@ -41,7 +39,7 @@ def draw_board():
                                             fill="#ffffff",
                                             outline="#8b5546")
             else:
-                tile[row][col] = canvas.create_rectangle(col * squareSize, row * squareSize,
+                canvas.create_rectangle(col * squareSize, row * squareSize,
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#FFFF99",
@@ -59,7 +57,6 @@ def move(event):
                         buff = board[row - 1][col]
                         board[row - 1][col] = board[row][col]
                         board[row][col] = buff
-                        canvas.move(key[row], 0, -squareSize)
                         draw_board()
             for row in range(len(board)):
                 for col in range(len(board[row])): 
@@ -74,7 +71,6 @@ def move(event):
                         buff = board[row + 1][col]
                         board[row + 1][col] = board[row][col]
                         board[row][col] = buff
-                        canvas.move(key[row], 0, squareSize)
                         draw_board()
 
             for row in range(len(board)):
@@ -82,7 +78,23 @@ def move(event):
                     print(board[row][col], end=' ')
                 print()
             print('\n')
-
+    if selectedTileStatus == "HORIZONTAL":
+        if event.keysym == "Right":
+            for row in range(len(board) - 1, 0, -1):
+                for col in range(len(board[row]) - 1, 0, -1):
+                    if board[row][col] == selectedTile and (board[row][col + 1] not in range(1, 100)):
+                        buff = board[row][col + 1]
+                        board[row][col + 1] = board[row][col]
+                        board[row][col] = buff
+                        draw_board()
+        if event.keysym == "Left":
+            for row in range(len(board)):
+                for col in range(len(board[row])):
+                    if board[row][col] == selectedTile and (board[row][col - 1] not in range(1, 100)):
+                        buff = board[row][col - 1]
+                        board[row][col - 1] = board[row][col]
+                        board[row][col] = buff
+                        draw_board()
 
 def click(event):
     global xCursor, yCursor, selectedTile, selectedTileStatus
@@ -125,7 +137,6 @@ xCursor = int
 yCursor = int
 selectedTile = int
 selectedTileStatus = str
-key = int
 
 # create board array
 board = [[1, 1, 3, 1, 1, 1],
@@ -159,6 +170,10 @@ draw_board()
 canvas.bind('<Button-1>', click)
 canvas.bind('<Up>', move)
 canvas.bind('<Down>', move)
+canvas.bind('<Right>', move)
+canvas.bind('<Left>', move)
+
+
 
 
 root.mainloop()
