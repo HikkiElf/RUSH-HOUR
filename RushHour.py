@@ -51,37 +51,43 @@ def draw_board():
 
 # moves blocks
 def move(event):
-    # if 
-    if event.keysym == "Up":
-        for row in range(len(board)):
-            for col in range(len(board[row])):
-                if board[row][col] == 2 and (board[row - 1][col] not in range(3, 100)):
-                    buff = board[row - 1][col]
-                    board[row - 1][col] = board[row][col]
-                    board[row][col] = buff
-                    canvas.move(key[row], 0, -squareSize)
-                    draw_board()
-        for row in range(len(board)):
-            for col in range(len(board[row])): 
-                print(board[row][col], end=' ')
-            print()
-        print('\n')
+    if selectedTileStatus == "VERTICAL":
+        if event.keysym == "Up":
+            for row in range(len(board)):
+                for col in range(len(board[row])):
+                    if board[row][col] == 2 and (board[row - 1][col] not in range(3, 100)):
+                        buff = board[row - 1][col]
+                        board[row - 1][col] = board[row][col]
+                        board[row][col] = buff
+                        canvas.move(key[row], 0, -squareSize)
+                        draw_board()
+                    elif board[row][col] == selectedTile and (board[row - 1][col] not in range(1, 100)):
+                        buff = board[row - 1][col]
+                        board[row - 1][col] = board[row][col]
+                        board[row][col] = buff
+                        canvas.move(key[row], 0, -squareSize)
+                        draw_board()
+            for row in range(len(board)):
+                for col in range(len(board[row])): 
+                    print(board[row][col], end=' ')
+                print()
+            print('\n')
 
-    if event.keysym == "Down":
-        for row in range(len(board) - 1, 0, -1):
-            for col in range(len(board[row]) - 1, 0, -1):
-                if board[row][col] == 2 and (board[row + 1][col] not in range(3, 100) and board[row + 1][col] != 1):
-                    buff = board[row + 1][col]
-                    board[row + 1][col] = board[row][col]
-                    board[row][col] = buff
-                    canvas.move(key[row], 0, squareSize)
-                    draw_board()
+        # if event.keysym == "Down":
+        #     for row in range(len(board) - 1, 0, -1):
+        #         for col in range(len(board[row]) - 1, 0, -1):
+        #             if board[row][col] == 2 and (board[row + 1][col] not in range(3, 100) and board[row + 1][col] != 1):
+        #                 buff = board[row + 1][col]
+        #                 board[row + 1][col] = board[row][col]
+        #                 board[row][col] = buff
+        #                 canvas.move(key[row], 0, squareSize)
+        #                 draw_board()
 
-        for row in range(len(board)):
-            for col in range(len(board[row])): 
-                print(board[row][col], end=' ')
-            print()
-        print('\n')
+        #     for row in range(len(board)):
+        #         for col in range(len(board[row])): 
+        #             print(board[row][col], end=' ')
+        #         print()
+        #     print('\n')
 
 
 def click(event):
@@ -125,12 +131,13 @@ xCursor = int
 yCursor = int
 selectedTile = int
 selectedTileStatus = str
+key = int
 
 # create board array
 board = [[1, 1, 3, 1, 1, 1],
-         [1, 0, 2, 5, 4, 1],
-         [1, 0, 2, 5, 4, 1],
-         [1, 7, 0, 0, 0, 1],
+         [1, 0, 0, 4, 4, 1],
+         [1, 0, 2, 5, 0, 1],
+         [1, 7, 2, 5, 0, 1],
          [1, 7, 0, 0, 0, 1],
          [1, 6, 6, 6, 0, 1],
          [1, 1, 1, 1, 1, 1]]
