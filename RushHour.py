@@ -55,13 +55,7 @@ def move(event):
         if event.keysym == "Up":
             for row in range(len(board)):
                 for col in range(len(board[row])):
-                    if board[row][col] == 2 and (board[row - 1][col] not in range(3, 100)):
-                        buff = board[row - 1][col]
-                        board[row - 1][col] = board[row][col]
-                        board[row][col] = buff
-                        canvas.move(key[row], 0, -squareSize)
-                        draw_board()
-                    elif board[row][col] == selectedTile and (board[row - 1][col] not in range(1, 100)):
+                    if board[row][col] == selectedTile and (board[row - 1][col] not in range(1, 100)):
                         buff = board[row - 1][col]
                         board[row - 1][col] = board[row][col]
                         board[row][col] = buff
@@ -73,21 +67,21 @@ def move(event):
                 print()
             print('\n')
 
-        # if event.keysym == "Down":
-        #     for row in range(len(board) - 1, 0, -1):
-        #         for col in range(len(board[row]) - 1, 0, -1):
-        #             if board[row][col] == 2 and (board[row + 1][col] not in range(3, 100) and board[row + 1][col] != 1):
-        #                 buff = board[row + 1][col]
-        #                 board[row + 1][col] = board[row][col]
-        #                 board[row][col] = buff
-        #                 canvas.move(key[row], 0, squareSize)
-        #                 draw_board()
+        if event.keysym == "Down":
+            for row in range(len(board) - 1, 0, -1):
+                for col in range(len(board[row]) - 1, 0, -1):
+                    if board[row][col] == selectedTile and (board[row + 1][col] not in range(1, 100)):
+                        buff = board[row + 1][col]
+                        board[row + 1][col] = board[row][col]
+                        board[row][col] = buff
+                        canvas.move(key[row], 0, squareSize)
+                        draw_board()
 
-        #     for row in range(len(board)):
-        #         for col in range(len(board[row])): 
-        #             print(board[row][col], end=' ')
-        #         print()
-        #     print('\n')
+            for row in range(len(board)):
+                for col in range(len(board[row])): 
+                    print(board[row][col], end=' ')
+                print()
+            print('\n')
 
 
 def click(event):
