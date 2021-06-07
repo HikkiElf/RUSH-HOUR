@@ -85,6 +85,7 @@ def move(event):
 
 
 def click(event):
+    global xCursor, yCursor, selectedTile, selectedTileStatus
     print(event)
     xCursor, yCursor = event.x, event.y # get cursor coordinates
 
@@ -92,7 +93,15 @@ def click(event):
     yCursor = yCursor // squareSize # Y cursor index
     value = board[yCursor][xCursor]
     print(value)
-
+    if value not in range(0, 4):
+        selectedTile = value
+        print(selectedTile, "выбран")
+        if selectedTile == board[yCursor - 1][xCursor] or selectedTile == board[yCursor + 1][xCursor]:
+            selectedTileStatus = "VERTICAL"
+            print(selectedTileStatus, "направление")
+        elif selectedTile == board[yCursor][xCursor - 1] or selectedTile == board[yCursor][xCursor + 1]:
+            selectedTileStatus = "HORIZONTAL"
+            print(selectedTileStatus, "направление")
 
     print(xCursor, yCursor, "\n")
 
@@ -102,15 +111,18 @@ def click(event):
 # Game settings
 root = tk.Tk() # main window
 root.title("Slide Blocks") # window name
-
+xCursor = int
+yCursor = int
+selectedTile = int
+selectedTileStatus = str
 
 # create board array
 board = [[1, 1, 3, 1, 1, 1],
          [1, 0, 2, 5, 4, 1],
          [1, 0, 2, 5, 4, 1],
-         [1, 0, 0, 0, 0, 1],
-         [1, 0, 0, 0, 0, 1],
-         [1, 0, 0, 0, 0, 1],
+         [1, 7, 0, 0, 0, 1],
+         [1, 7, 0, 0, 0, 1],
+         [1, 6, 6, 6, 0, 1],
          [1, 1, 1, 1, 1, 1]]
 
 for row in range(len(board)):
