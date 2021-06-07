@@ -51,7 +51,7 @@ def draw_board():
 
 # moves blocks
 def move(event):
-
+    # if 
     if event.keysym == "Up":
         for row in range(len(board)):
             for col in range(len(board[row])):
@@ -102,6 +102,16 @@ def click(event):
         elif selectedTile == board[yCursor][xCursor - 1] or selectedTile == board[yCursor][xCursor + 1]:
             selectedTileStatus = "HORIZONTAL"
             print(selectedTileStatus, "направление")
+    elif value == 2:
+        selectedTile = value
+        print(selectedTile, "выбран")
+        if selectedTile == board[yCursor - 1][xCursor] or selectedTile == board[yCursor + 1][xCursor]:
+            selectedTileStatus = "VERTICAL"
+            print(selectedTileStatus, "направление")
+        elif selectedTile == board[yCursor][xCursor - 1] or selectedTile == board[yCursor][xCursor + 1]:
+            selectedTileStatus = "HORIZONTAL"
+            print(selectedTileStatus, "направление")
+
 
     print(xCursor, yCursor, "\n")
 
