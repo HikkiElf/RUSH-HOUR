@@ -84,6 +84,7 @@ def move(event):
                         buff = board[row - 1][col]
                         board[row - 1][col] = board[row][col]
                         board[row][col] = buff
+                        canvas.delete("all")
                         draw_board()
                     elif board[row][col] == selectedTile and board[row - 1][col] == 3:
                         winner()
@@ -100,6 +101,7 @@ def move(event):
                         buff = board[row + 1][col]
                         board[row + 1][col] = board[row][col]
                         board[row][col] = buff
+                        canvas.delete("all")
                         draw_board()
 
             for row in range(len(board)):
@@ -116,6 +118,7 @@ def move(event):
                         buff = board[row][col + 1]
                         board[row][col + 1] = board[row][col]
                         board[row][col] = buff
+                        canvas.delete("all")
                         draw_board()
                     elif board[row][col] == selectedTile and board[row][col + 1] == 3:
                         winner()
@@ -127,6 +130,7 @@ def move(event):
                         buff = board[row][col - 1]
                         board[row][col - 1] = board[row][col]
                         board[row][col] = buff
+                        canvas.delete("all")
                         draw_board()
 
 def click(event):
@@ -159,6 +163,7 @@ def click(event):
 
 
     print(xCursor, yCursor, "\n")
+    canvas.delete("all")
     draw_board()
 
 
