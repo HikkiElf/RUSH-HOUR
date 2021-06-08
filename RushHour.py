@@ -53,25 +53,25 @@ def draw_board():
                                             outline="#0F0326")
 
 
-# def winner():
-#         def on_closing():
-#             winWinner.destroy()
+def winner():
+        def on_closing():
+            winWinner.destroy()
 
-#         winWinner = tk.Toplevel(root) 
-#         winWinner.protocol("WM_DELETE_WINDOW", on_closing)
-#         winWinner.title('You Win')
-#         winWinner.geometry('400x400+600+300')
+        winWinner = tk.Toplevel(root) 
+        winWinner.protocol("WM_DELETE_WINDOW", on_closing)
+        winWinner.title('You Win')
+        winWinner.geometry('400x400+600+300')
         
-#         Mycanvas = tk.Canvas(winWinner,width=400,height=400)
-#         Mycanvas.pack()
+        Mycanvas = tk.Canvas(winWinner,width=400,height=400)
+        Mycanvas.pack()
 
-#         canvas_id = Mycanvas.create_text(180, 20, anchor="nw") 
-#         Mycanvas.itemconfig( canvas_id, text="You Win!") 
+        canvas_id = Mycanvas.create_text(180, 20, anchor="nw") 
+        Mycanvas.itemconfig( canvas_id, text="You Win!") 
 
-#         pilImage = Image.open("unnamed1.jpeg")
-#         image = ImageTk.PhotoImage(pilImage)
-#         imagesprite = Mycanvas.create_image(200,200,image= image)
-#         winWinner.mainloop()
+        pilImage = Image.open("unnamed1.jpeg")
+        image = ImageTk.PhotoImage(pilImage)
+        imagesprite = Mycanvas.create_image(200,200,image= image)
+        winWinner.mainloop()
 
 
 # moves blocks
@@ -85,12 +85,8 @@ def move(event):
                         board[row - 1][col] = board[row][col]
                         board[row][col] = buff
                         draw_board()
-                    # elif board[row][col] == selectedTile and board[row - 1][col] == 3:
-                    #     buff = board[row - 1][col]
-                    #     board[row - 1][col] = board[row][col]
-                    #     board[row][col] = buff
-                    #     draw_board()
-                    #     winner()
+                    elif board[row][col] == selectedTile and board[row - 1][col] == 3:
+                        winner()
             for row in range(len(board)):
                 for col in range(len(board[row])): 
                     print(board[row][col], end=' ')
@@ -111,6 +107,7 @@ def move(event):
                     print(board[row][col], end=' ')
                 print()
             print('\n')
+
     if selectedTileStatus == "HORIZONTAL":
         if event.keysym == "Right":
             for row in range(len(board) - 1, 0, -1):
@@ -120,6 +117,9 @@ def move(event):
                         board[row][col + 1] = board[row][col]
                         board[row][col] = buff
                         draw_board()
+                    elif board[row][col] == selectedTile and board[row][col + 1] == 3:
+                        winner()
+
         if event.keysym == "Left":
             for row in range(len(board)):
                 for col in range(len(board[row])):
@@ -173,13 +173,14 @@ selectedTile = int
 selectedTileStatus = str
 
 # create board array
-board = [[1, 1, 3, 1, 1, 1],
-         [1, 4, 4, 0, 8, 1],
-         [1, 0, 2, 5, 8, 1],
-         [1, 7, 2, 5, 8, 1],
-         [1, 7, 0, 0, 0, 1],
-         [1, 6, 6, 6, 0, 1],
-         [1, 1, 1, 1, 1, 1]]
+board = [[1, 1, 1, 1, 1, 1, 1, 1],
+         [1, 0, 0, 4, 6, 0, 0, 1],
+         [1, 0, 0, 4, 6, 0, 0, 1],
+         [1, 2, 2, 4, 6, 0, 0, 3],
+         [1, 0, 5, 5, 0, 0, 0, 1],
+         [1, 0, 0, 0, 0, 0, 0, 1],
+         [1, 0, 0, 0, 0, 0, 0, 1],
+         [1, 1, 1, 1, 1, 1, 1, 1]]
 
 for row in range(len(board)):
     for col in range(len(board[row])): 
