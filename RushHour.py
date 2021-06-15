@@ -2,6 +2,15 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import random
 
+# colors = [[1, 1, 1, 1, 1, 1, 1, 1],
+#          [1, "purple", 0, "#f78316", 0, "#e084da", "#e084da", 1],
+#          [1, 0, 0, "#f78316", "#a6bdb7", 0, "#9e84e0", 1],
+#          [1, "#f4f716", 2, 2, "#a6bdb7", 0, "#9e84e0", 3],
+#          [1, "#f4f716", 0, "#0e2923", "#84e0e0", "#84e0e0", "#84e0e0", 1],
+#          [1, "#f4f716", 0, "#0e2923", 0, 0, "#30cf9f", 1],
+#          [1, "#4bf716", "#4bf716", "#4bf716", 0, 0, "#30cf9f", 1],
+#          [1, 1, 1, 1, 1, 1, 1, 1]]
+
 
 
 # draw game board
@@ -45,11 +54,17 @@ def draw_board():
                                             row * squareSize + squareSize,
                                             fill="#ffffff",
                                             outline="#8b5546", width = 5)
-            else:
+            elif board[row][col] in range(3, 100) and (board[row - 1][col] == board[row][col] or board[row + 1][col] == board[row][col]):
                 canvas.create_rectangle(col * squareSize, row * squareSize,
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#FFFF99",
+                                            outline="#0F0326")
+            else:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#FFC0CB",
                                             outline="#0F0326")
 
 
@@ -179,12 +194,12 @@ selectedTileStatus = str
 
 # create board array
 board = [[1, 1, 1, 1, 1, 1, 1, 1],
-         [1, 0, 0, 4, 6, 0, 0, 1],
-         [1, 0, 0, 4, 6, 0, 0, 1],
-         [1, 2, 2, 4, 6, 0, 0, 3],
-         [1, 0, 5, 5, 0, 0, 0, 1],
+         [1, 0, 5, 5, 5, 0, 0, 1],
          [1, 0, 0, 0, 0, 0, 0, 1],
-         [1, 0, 0, 0, 0, 0, 0, 1],
+         [1, 0, 2, 2, 0, 0, 0, 3],
+         [1, 0, 0, 0, 0, 0, 8, 1],
+         [1, 4, 4, 6, 0, 0, 8, 1],
+         [1, 0, 0, 6, 7, 7, 8, 1],
          [1, 1, 1, 1, 1, 1, 1, 1]]
 
 for row in range(len(board)):
