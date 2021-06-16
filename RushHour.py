@@ -1,7 +1,8 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 import random
-
+from menu import level
+from boards import *
 
 # draw game board
 # 0 - empty,
@@ -13,20 +14,20 @@ def draw_board():
     for row in range(len(board)):
         for col in range(len(board[row])):
             if board[row][col] == 0:
-                canvas.create_rectangle(col * squareSize, row * squareSize, # white cube
+                canvas.create_rectangle(col * squareSize, row * squareSize,
                                                 col * squareSize + squareSize,
                                                 row * squareSize + squareSize,
                                                 fill="#55342b",
                                                 outline="#8b5546")
 
             elif board[row][col] == 1:
-                canvas.create_rectangle(col * squareSize, row * squareSize, # area blocks
+                canvas.create_rectangle(col * squareSize, row * squareSize, 
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#000000")
 
             elif board[row][col] == selectedTile and selectedTile == 2:
-                canvas.create_rectangle(col * squareSize, row * squareSize, # area blocks
+                canvas.create_rectangle(col * squareSize, row * squareSize,
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#D42421",
@@ -40,14 +41,14 @@ def draw_board():
                                             outline="#8b5546")
 
             elif board[row][col] == 3:
-                canvas.create_rectangle(col * squareSize, row * squareSize, # area blocks
+                canvas.create_rectangle(col * squareSize, row * squareSize, 
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#FFD700",
                                             outline="#8b5546")
         
             elif board[row][col] == selectedTile:
-                canvas.create_rectangle(col * squareSize, row * squareSize, # area blocks
+                canvas.create_rectangle(col * squareSize, row * squareSize,
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#ffffff",
@@ -107,31 +108,50 @@ def draw_board():
                                             row * squareSize + squareSize,
                                             fill="#f18d1f",
                                             outline="#0F0326")
+            elif board[row][col] == 13:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#8d8742",
+                                            outline="#0F0326")
+            elif board[row][col] == 14:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#278dae",
+                                            outline="#0F0326")
+            elif board[row][col] == 15:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#c3a6b5",
+                                            outline="#0F0326")
 
 
-def winner():
-        def on_closing():
-            winWinner.destroy()
+# def winner():
+#         def on_closing():
+#             winWinner.destroy()
 
-        winWinner = tk.Toplevel(root) 
-        winWinner.protocol("WM_DELETE_WINDOW", on_closing)
-        winWinner.title('You Win')
-        winWinner.geometry('400x400+600+300')
+#         winWinner = tk.Toplevel(root) 
+#         winWinner.protocol("WM_DELETE_WINDOW", on_closing)
+#         winWinner.title('You Win')
+#         winWinner.geometry('400x400+600+300')
         
-        Mycanvas = tk.Canvas(winWinner,width=400,height=400)
-        Mycanvas.pack()
+#         Mycanvas = tk.Canvas(winWinner,width=400,height=400)
+#         Mycanvas.pack()
 
-        canvas_id = Mycanvas.create_text(180, 20, anchor="nw") 
-        Mycanvas.itemconfig( canvas_id, text="You Win!") 
+#         canvas_id = Mycanvas.create_text(180, 20, anchor="nw") 
+#         Mycanvas.itemconfig( canvas_id, text="You Win!") 
 
-        pilImage = Image.open("unnamed1.jpeg")
-        image = ImageTk.PhotoImage(pilImage)
-        imagesprite = Mycanvas.create_image(200,200,image= image)
-        winWinner.mainloop()
+#         # pilImage = Image.open("unnamed1.jpeg")
+#         # image = ImageTk.PhotoImage(pilImage)
+#         # imagesprite = Mycanvas.create_image(200,200,image= image)
+#         winWinner.mainloop()
 
 
 # moves blocks
 def move(event):
+    global level, board
     if selectedTileStatus == "VERTICAL":
         if event.keysym == "Up":
             for row in range(len(board)):
@@ -177,7 +197,27 @@ def move(event):
                         canvas.delete("all")
                         draw_board()
                     elif board[row][col] == selectedTile and board[row][col + 1] == 3:
-                        winner()
+                        flag == True
+                        level += 1
+                        print(level,"ddaqfqgqrgqergqrgeqrgqergqergqgrgeqrgqrg\n")
+                        if level == 2:
+                            board = random.choice([board4, board5, board6])
+                            root.title("Slide Blocks: level " + str(level))
+                        if level == 3:
+                            board = random.choice([board7, board8, board9])
+                            root.title("Slide Blocks: level " + str(level))
+                        if level == 4:
+                            board = random.choice([board10, board11, board12])
+                            root.title("Slide Blocks: level " + str(level))
+                        if level == 5:
+                            board = random.choice([board13, board14, board15])
+                            if board == board13:
+                                root.title("Good Luck")
+                            else:
+                                root.title("Slide Blocks: level " + str(level))
+                        draw_board()
+                        
+                        
 
         if event.keysym == "Left":
             for row in range(len(board)):
@@ -188,6 +228,7 @@ def move(event):
                         board[row][col] = buff
                         canvas.delete("all")
                         draw_board()
+
 
 def click(event):
     global xCursor, yCursor, selectedTile, selectedTileStatus
@@ -223,32 +264,28 @@ def click(event):
     draw_board()
 
 
-
-
 # Game settings
 root = tk.Tk() # main window
-root.title("Slide Blocks") # window name
+root.title("Slide Blocks: level " + str(level)) # window name
 xCursor = int
 yCursor = int
 selectedTile = int
 selectedTileStatus = str
+flag = bool
 
 # create board array
-board = [[1, 1, 1, 1, 1, 1, 1, 1],
-         [1, 0, 0, 11, 0, 4, 4, 1],
-         [1, 0, 0, 11, 12, 0, 5, 1],
-         [1, 10, 2, 2, 12, 0, 5, 3],
-         [1, 10, 0, 9, 6, 6, 6, 1],
-         [1, 10, 0, 9, 0, 0, 7, 1],
-         [1, 8, 8, 8, 0, 0, 7, 1],
-         [1, 1, 1, 1, 1, 1, 1, 1]]
+if level == 1:
+    board = random.choice([board1, board2, board3])
+if flag == True:
+    if level == 2:
+        board = random.choice([board4, board5, board6])
+        flag = False
 
 for row in range(len(board)):
     for col in range(len(board[row])): 
         print(board[row][col], end=' ')
     print()
 print('\n')
-
 
 squareSize = 100
 
@@ -268,8 +305,6 @@ canvas.bind('<Up>', move)
 canvas.bind('<Down>', move)
 canvas.bind('<Right>', move)
 canvas.bind('<Left>', move)
-
-
 
 
 root.mainloop()
