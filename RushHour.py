@@ -2,16 +2,6 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import random
 
-# colors = [[1, 1, 1, 1, 1, 1, 1, 1],
-#          [1, "purple", 0, "#f78316", 0, "#e084da", "#e084da", 1],
-#          [1, 0, 0, "#f78316", "#a6bdb7", 0, "#9e84e0", 1],
-#          [1, "#f4f716", 2, 2, "#a6bdb7", 0, "#9e84e0", 3],
-#          [1, "#f4f716", 0, "#0e2923", "#84e0e0", "#84e0e0", "#84e0e0", 1],
-#          [1, "#f4f716", 0, "#0e2923", 0, 0, "#30cf9f", 1],
-#          [1, "#4bf716", "#4bf716", "#4bf716", 0, 0, "#30cf9f", 1],
-#          [1, 1, 1, 1, 1, 1, 1, 1]]
-
-
 
 # draw game board
 # 0 - empty,
@@ -34,6 +24,13 @@ def draw_board():
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#000000")
+
+            elif board[row][col] == selectedTile and selectedTile == 2:
+                canvas.create_rectangle(col * squareSize, row * squareSize, # area blocks
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#D42421",
+                                            outline="#8b5546", width = 5)
             
             elif board[row][col] == 2:
                 canvas.create_rectangle(col * squareSize, row * squareSize,
@@ -41,6 +38,7 @@ def draw_board():
                                             row * squareSize + squareSize,
                                             fill="#D42421",
                                             outline="#8b5546")
+
             elif board[row][col] == 3:
                 canvas.create_rectangle(col * squareSize, row * squareSize, # area blocks
                                             col * squareSize + squareSize,
@@ -54,17 +52,60 @@ def draw_board():
                                             row * squareSize + squareSize,
                                             fill="#ffffff",
                                             outline="#8b5546", width = 5)
-            elif board[row][col] in range(3, 100) and (board[row - 1][col] == board[row][col] or board[row + 1][col] == board[row][col]):
+
+            elif board[row][col] == 4:
                 canvas.create_rectangle(col * squareSize, row * squareSize,
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#FFFF99",
                                             outline="#0F0326")
-            else:
+            elif board[row][col] == 5:
                 canvas.create_rectangle(col * squareSize, row * squareSize,
                                             col * squareSize + squareSize,
                                             row * squareSize + squareSize,
                                             fill="#FFC0CB",
+                                            outline="#0F0326")
+            elif board[row][col] == 6:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#42dc51",
+                                            outline="#0F0326")
+            elif board[row][col] == 7:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#b9d1d3",
+                                            outline="#0F0326")
+            elif board[row][col] == 8:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#2fd8e8",
+                                            outline="#0F0326")
+            elif board[row][col] == 9:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#7e63b3",
+                                            outline="#0F0326")
+            elif board[row][col] == 10:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#921160",
+                                            outline="#0F0326")
+            elif board[row][col] == 11:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#94c6b0",
+                                            outline="#0F0326")
+            elif board[row][col] == 12:
+                canvas.create_rectangle(col * squareSize, row * squareSize,
+                                            col * squareSize + squareSize,
+                                            row * squareSize + squareSize,
+                                            fill="#f18d1f",
                                             outline="#0F0326")
 
 
@@ -194,12 +235,12 @@ selectedTileStatus = str
 
 # create board array
 board = [[1, 1, 1, 1, 1, 1, 1, 1],
-         [1, 0, 5, 5, 5, 0, 0, 1],
-         [1, 0, 0, 0, 0, 0, 0, 1],
-         [1, 0, 2, 2, 0, 0, 0, 3],
-         [1, 0, 0, 0, 0, 0, 8, 1],
-         [1, 4, 4, 6, 0, 0, 8, 1],
-         [1, 0, 0, 6, 7, 7, 8, 1],
+         [1, 0, 0, 11, 0, 4, 4, 1],
+         [1, 0, 0, 11, 12, 0, 5, 1],
+         [1, 10, 2, 2, 12, 0, 5, 3],
+         [1, 10, 0, 9, 6, 6, 6, 1],
+         [1, 10, 0, 9, 0, 0, 7, 1],
+         [1, 8, 8, 8, 0, 0, 7, 1],
          [1, 1, 1, 1, 1, 1, 1, 1]]
 
 for row in range(len(board)):
