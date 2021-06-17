@@ -143,8 +143,8 @@ def move(event):
                         board[row][col] = buff
                         canvas.delete("all")
                         draw_board()
-                    elif board[row][col] == selectedTile and board[row - 1][col] == 3:
-                        win()
+                    # elif board[row][col] == selectedTile and board[row - 1][col] == 3:
+                    #     win()
             for row in range(len(board)):
                 for col in range(len(board[row])): 
                     print(board[row][col], end=' ')
@@ -178,9 +178,8 @@ def move(event):
                         canvas.delete("all")
                         draw_board()
                     elif board[row][col] == selectedTile and board[row][col + 1] == 3:
-                        flag == True
                         level += 1
-                        print(level,"ddaqfqgqrgqergqrgeqrgqergqergqgrgeqrgqrg\n")
+                        print(level,"LEVEL\n")
                         if level == 2:
                             board = random.choice([board4, board5, board6])
                             root.title("Slide Blocks: level " + str(level))
@@ -232,6 +231,7 @@ def click(event):
         elif selectedTile == board[yCursor][xCursor - 1] or selectedTile == board[yCursor][xCursor + 1]:
             selectedTileStatus = "HORIZONTAL"
             print(selectedTileStatus, "направление")
+
     elif value == 2:
         selectedTile = value
         print(selectedTile, "выбран")
