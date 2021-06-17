@@ -1,7 +1,9 @@
 import tkinter as tk
+from tkinter import messagebox
 from PIL import ImageTk, Image
 import random
 from menu import level
+from win import win
 from boards import *
 
 # draw game board
@@ -128,27 +130,6 @@ def draw_board():
                                             outline="#0F0326")
 
 
-# def winner():
-#         def on_closing():
-#             winWinner.destroy()
-
-#         winWinner = tk.Toplevel(root) 
-#         winWinner.protocol("WM_DELETE_WINDOW", on_closing)
-#         winWinner.title('You Win')
-#         winWinner.geometry('400x400+600+300')
-        
-#         Mycanvas = tk.Canvas(winWinner,width=400,height=400)
-#         Mycanvas.pack()
-
-#         canvas_id = Mycanvas.create_text(180, 20, anchor="nw") 
-#         Mycanvas.itemconfig( canvas_id, text="You Win!") 
-
-#         # pilImage = Image.open("unnamed1.jpeg")
-#         # image = ImageTk.PhotoImage(pilImage)
-#         # imagesprite = Mycanvas.create_image(200,200,image= image)
-#         winWinner.mainloop()
-
-
 # moves blocks
 def move(event):
     global level, board
@@ -163,7 +144,7 @@ def move(event):
                         canvas.delete("all")
                         draw_board()
                     elif board[row][col] == selectedTile and board[row - 1][col] == 3:
-                        winner()
+                        win()
             for row in range(len(board)):
                 for col in range(len(board[row])): 
                     print(board[row][col], end=' ')
@@ -215,6 +196,9 @@ def move(event):
                                 root.title("Good Luck")
                             else:
                                 root.title("Slide Blocks: level " + str(level))
+                        if level == 6:
+                            root.destroy()
+                            win()
                         draw_board()
                         
                         
